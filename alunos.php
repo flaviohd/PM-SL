@@ -22,19 +22,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $novogenero = trim($_POST["genero"]);
   echo $novogenero;
   $genero = $novogenero;
-  $dtnascimento = trim($_POST["dtnascimento"]);
-  echo $ndtnascimento;
-  $dtnascimento = $ndtnascimento;
+  $novodtnascimento = trim($_POST["dtnascimento"]);
+  echo $novodtnascimento;
+  $dtnascimento = $novodtnascimento;
 
-  $sql = "INSERT INTO alunos (nome, genero, dtnascimento) VALUES (?, ?, ?)";
+  $sql = "INSERT INTO aluno (nome, sexo, nascimento) VALUES (?, ?, ?)";
 
   if ($coisa = mysqli_prepare($mysql, $sql)) {
     echo "preparou";
-
-    mysqli_stmt_bind_param($coisa, $pnome, $pgenero, $pdtnascimento);
+ 
     $pnome = $nome;
     $pgenero = $genero;
     $pdtnascimento = $dtnascimento;
+    
+    mysqli_stmt_bind_param($coisa, 'sss', $pnome, $pgenero, $pdtnascimento);
+   
 
     if (mysqli_stmt_execute($coisa)) {
       echo "executou";
